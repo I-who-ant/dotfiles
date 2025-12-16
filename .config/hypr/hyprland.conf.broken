@@ -1,0 +1,411 @@
+# #######################################################################################
+# Hyprland 配置文件 - 终极整合版
+# 基于最新的 Hyprland 语法，并整合了您之前的个性化配置。
+# #######################################################################################
+
+# 查阅 Hyprland Wiki 获取所有可用选项的详细信息: https://wiki.hypr.land/Configuring/
+
+# 您可以将配置拆分到多个文件中，像这样引入:
+# source = ~/.config/hypr/myColors.conf
+
+################
+### 显示器设置 ###
+################
+# 笔记本内置屏幕：1.0x 缩放（避免 XWayland 模糊，在应用内部放大）
+monitor=eDP-1,1920x1200@60,0x0,1.0
+
+# 外接显示器：禁用（不使用时）
+monitor=HDMI-A-1,disable
+
+# 其他显示器使用默认设置
+monitor=,preferred,auto,auto
+
+
+###################
+### 定义常用程序 ###
+###################
+# 设置您常用的程序变量，方便后续调用
+$terminal = kitty
+$fileManager = nautilus
+# 应用启动器：rofi（功能强大的应用启动器和窗口切换器）
+$menu = rofi -show drun -theme ~/.config/rofi/theme.rasi
+
+
+#################
+### 开机自启 ###
+#################
+# 在此处设置开机自启的必要进程 (如: 通知服务, 状态栏, 壁纸等)
+# 以下项目移植自您之前的配置。
+# exec-once = hyprlauncher -d                             # 应用启动器守护进程（已改用 rofi）
+exec-once = mako                                          # 通知守护进程
+exec-once = fcitx5 --replace -d                                     # 中文输入法框架
+exec-once = waybar &                                      # 状态栏 (使用 '&' 使其在后台运行)
+exec-once = hyprpaper &                                   # 壁纸程序 (使用 '&' 使其在后台运行)
+exec-once = wl-paste --type text --watch cliphist store   # 剪贴板历史记录工具（文本）
+exec-once = wl-paste --type image --watch cliphist store  # 剪贴板历史记录工具（图片）
+exec-once = /usr/lib/polkit-kde-authentication-agent-1    # 认证代理（权限提升弹窗）
+exec-once = nm-applet --indicator                         # 网络管理托盘图标
+exec-once = blueman-applet                                # 蓝牙托盘图标
+exec-once = hypridle                                      # 空闲管理（自动锁屏/休眠）
+# exec-once = hyprsunset                                    # 蓝光过滤器（护眼模式）- 暂时禁用
+exec-once = hyprctl setcursor Breeze 24                   # 设置光标主题
+
+
+#############################
+### 环境变量 ###
+#############################
+# 设置会话所需的环境变量, 如光标大小、输入法等
+# 以下输入法相关变量移植自您之前的配置，对中文输入至关重要。
+env = XCURSOR_SIZE,24
+env = HYPRCURSOR_SIZE,24
+env = XIM,fcitx
+env = XIM_PROGRAM,fcitx
+env = INPUT_METHOD,fcitx
+env = GTK_IM_MODULE,fcitx
+env = QT_IM_MODULE,fcitx
+env = XMODIFIERS,@im=fcitx
+
+# Wayland 原生支持
+env = QT_QPA_PLATFORM,wayland;xcb
+env = QT_QPA_PLATFORMTHEME,qt6ct
+env = GDK_BACKEND,wayland,x11
+env = SDL_VIDEODRIVER,wayland
+env = CLUTTER_BACKEND,wayland
+
+# Electron 应用
+env = ELECTRON_OZONE_PLATFORM_HINT,auto
+
+# Firefox
+env = MOZ_ENABLE_WAYLAND,1
+
+# Java 应用修复
+env = _JAVA_AWT_WM_NONREPARENTING,1
+
+# XDG 规范
+env = XDG_CURRENT_DESKTOP,Hyprland
+env = XDG_SESSION_TYPE,wayland
+env = XDG_SESSION_DESKTOP,Hyprland
+
+# 字体渲染优化（改善非整数缩放下的字体清晰度）
+env = GDK_DPI_SCALE,1.0
+env = FREETYPE_PROPERTIES,truetype:interpreter-version=40
+
+# 禁用客户端装饰（某些应用可能更清晰）
+# env = QT_WAYLAND_DISABLE_WINDOWDECORATION,1
+
+
+###################
+### 权限管理 ###
+###################
+# 这是 Hyprland 新版本中引入的安全特性。
+# 除非您明确知道需要为某个程序授权 (如截图)，否则请保持注释状态。
+# ecosystem {
+#   enforce_permissions = 1
+# }
+# permission = /usr/(bin|local/bin)/grim, screencopy, allow
+
+
+#####################
+### 外观与感受 ###
+#####################
+
+# 通用设置
+general {
+    gaps_in = 0             # 窗口之间的间隙
+    gaps_out = 0            # 窗口与屏幕边缘的间隙
+    border_size = 2         # 窗口边框大小
+    # 活跃窗口和非活跃窗口的边框颜色，支持渐变
+    col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
+    col.inactive_border = rgba(595959aa)
+    resize_on_border = false # 是否允许通过拖动边框来调整窗口大小
+    allow_tearing = false   # 是否允许屏幕撕裂 (通常建议关闭)
+    layout = dwindle        # 默认窗口布局
+}
+
+# 装饰
+decoration {
+    rounding = 10           # 窗口圆角大小
+    # rounding_power = 2    # 此选项在新版中已弃用，现在的圆角是线性的
+
+    # 活跃和非活跃窗口的透明度
+    active_opacity = 1.0
+    inactive_opacity = 1.0
+
+    # 窗口阴影
+    shadow {
+        enabled = true
+        range = 4
+        render_power = 3
+        color = rgba(1a1a1aee)
+    }
+
+    # 背景模糊效果 (毛玻璃)
+    blur {
+        enabled = true
+        size = 3
+        passes = 1
+        vibrancy = 0.1696
+    }
+}
+
+# 动画效果
+animations {
+    enabled = yes
+
+    # 动画曲线 (贝塞尔曲线)
+    bezier = easeOutQuint,   0.23, 1,    0.32, 1
+    bezier = easeInOutCubic, 0.65, 0.05, 0.36, 1
+
+    # 动画效果设置 (采用了一套更简洁、流畅的现代配置)
+    animation = global,        1,     10,    default
+    animation = border,        1,     10,    default
+    animation = windows,       1,     7,     easeOutQuint, popin 80%
+    animation = windowsIn,     1,     7,     easeOutQuint, popin 80%
+    animation = windowsOut,    1,     7,     easeInOutCubic, popin 80%
+    animation = fadeIn,        1,     7,     default
+    animation = fadeOut,       1,     7,     default
+    animation = workspaces,    1,     6,     default
+}
+
+# Dwindle 布局设置
+dwindle {
+    pseudotile = true       # 伪平铺模式开关
+    preserve_split = true   # 保持窗口分割比例
+}
+
+# Master 布局设置
+master {
+    new_status = master
+}
+
+# 其他杂项
+misc {
+    force_default_wallpaper = 0      # 0 表示使用自定义壁纸，不显示默认壁纸
+    disable_hyprland_logo = true     # 禁用启动时的 Hyprland Logo
+    disable_splash_rendering = true  # 禁用启动画面
+
+    mouse_move_enables_dpms = true   # 移动鼠标唤醒屏幕
+    key_press_enables_dpms = true    # 按键唤醒屏幕
+
+    vfr = true                       # 可变帧率，空闲时降低刷新（省电）
+    vrr = 0                          # 可变刷新率：0=关闭, 1=仅全屏, 2=总是
+
+    # 窗口吞噬（终端中启动 GUI 应用时隐藏终端）
+    enable_swallow = true
+    swallow_regex = ^(kitty|alacritty|Alacritty|foot)$
+
+    initial_workspace_tracking = 1   # 新窗口的焦点行为
+}
+
+
+#############
+### 输入设备 ###
+#############
+
+input {
+    kb_layout = us          # 键盘布局
+    kb_variant =
+    kb_model =
+    kb_options = ctrl:nocaps  # CapsLock 映射为 Ctrl
+    kb_rules =
+
+    follow_mouse = 1        # 鼠标指针切换窗口焦点的方式
+    sensitivity = 0         # 鼠标灵敏度 (-1.0 到 1.0, 0 为不修改)
+    accel_profile = adaptive # 鼠标加速配置：adaptive（自适应） 或 flat（线性）
+    force_no_accel = false  # 是否强制禁用鼠标加速
+
+    touchpad {
+        natural_scroll = true        # 自然滚动（推荐开启）
+        tap-to-click = true          # 轻触触摸板等于点击
+        drag_lock = false            # 拖拽锁定
+        disable_while_typing = true  # 打字时禁用触摸板
+        scroll_factor = 1.0          # 滚动速度倍数
+        middle_button_emulation = false # 双指点击模拟中键
+        clickfinger_behavior = true  # 双指点击=右键，三指点击=中键
+    }
+}
+
+# 手势配置（如果你的设备支持触摸板手势，可以取消注释）
+# gestures {
+#     workspace_swipe = true
+# }
+
+# 针对特定设备的配置示例
+device {
+    name = epic-mouse-v1
+    sensitivity = -0.5
+}
+
+
+###################
+### 快捷键绑定 ###
+###################
+
+$mainMod = SUPER # 设置 Super 键 (Win键) 为主修饰键
+
+# 您的个性化及优化后的快捷键
+bind = $mainMod, R, exec, $terminal        # Super + R: 打开终端
+bind = $mainMod, Q, killactive,            # Super + Q: 关闭当前活跃窗口
+bind = $mainMod, E, exec, $fileManager     # Super + E: 打开文件管理器
+bind = $mainMod, D, exec, $menu            # Super + D: 打开程序启动器
+bind = $mainMod, TAB, exec, rofi -show window -theme ~/.config/rofi/theme.rasi  # Super + Tab: 窗口切换器
+bind = $mainMod SHIFT, E, exec, ~/.local/bin/rofi-file-finder  # Super + Shift + E: 文件查找器
+bind = $mainMod, SPACE, togglefloating,    # Super + Space: 切换窗口浮动状态
+bind = $mainMod SHIFT, F, fullscreen, 0    # Super + Shift + F: 切换窗口全屏
+
+# Emacs 风格窗口焦点移动
+bind = $mainMod, F, movefocus, r           # Super + F: 向右移动焦点 (forward)
+bind = $mainMod, B, movefocus, l           # Super + B: 向左移动焦点 (backward)
+bind = $mainMod, N, movefocus, d           # Super + N: 向下移动焦点 (next)
+bind = $mainMod, P, movefocus, u           # Super + P: 向上移动焦点 (previous)
+
+# 您的个性化剪贴板历史快捷键
+bind = $mainMod, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy
+
+# Dwindle 布局专用快捷键
+bind = $mainMod, J, togglesplit,           # Super + J: 切换伪平铺模式下的分割方向
+
+# 移动焦点
+bind = $mainMod, left, movefocus, l
+bind = $mainMod, right, movefocus, r
+bind = $mainMod, up, movefocus, u
+bind = $mainMod, down, movefocus, d
+
+# 切换工作区
+bind = $mainMod, 1, workspace, 1
+bind = $mainMod, 2, workspace, 2
+bind = $mainMod, 3, workspace, 3
+bind = $mainMod, 4, workspace, 4
+bind = $mainMod, 5, workspace, 5
+bind = $mainMod, 6, workspace, 6
+bind = $mainMod, 7, workspace, 7
+bind = $mainMod, 8, workspace, 8
+bind = $mainMod, 9, workspace, 9
+bind = $mainMod, 0, workspace, 10 # 将 Super + 0 映射到第10个工作区，比映射到0更符合直觉
+
+# 移动当前窗口到指定工作区
+bind = $mainMod SHIFT, 1, movetoworkspace, 1
+bind = $mainMod SHIFT, 2, movetoworkspace, 2
+bind = $mainMod SHIFT, 3, movetoworkspace, 3
+bind = $mainMod SHIFT, 4, movetoworkspace, 4
+bind = $mainMod SHIFT, 5, movetoworkspace, 5
+bind = $mainMod SHIFT, 6, movetoworkspace, 6
+bind = $mainMod SHIFT, 7, movetoworkspace, 7
+bind = $mainMod SHIFT, 8, movetoworkspace, 8
+bind = $mainMod SHIFT, 9, movetoworkspace, 9
+bind = $mainMod SHIFT, 0, movetoworkspace, 10
+
+# 特殊工作区 (用作临时便签或"暂存区")
+bind = $mainMod, S, togglespecialworkspace, magic
+bind = $mainMod SHIFT, S, movetoworkspace, special:magic
+
+# 使用鼠标滚轮切换工作区
+bind = $mainMod, mouse_down, workspace, e+1
+bind = $mainMod, mouse_up, workspace, e-1
+
+# 使用 Super + 鼠标左/右键拖动/调整窗口大小
+bindm = $mainMod, mouse:272, movewindow
+bindm = $mainMod, mouse:273, resizewindow
+
+# 系统控制快捷键
+bind = $mainMod, L, exec, hyprlock                           # Super + L: 锁屏
+bind = $mainMod, U, exec, wlogout  # Super + U: 电源菜单
+
+# 截图功能（使用 Satty 进行标注编辑）
+bind = , Print, exec, grim -g "$(slurp)" - | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/$(date +'%Y%m%d_%H%M%S.png')  # Print: 选区截图+编辑
+bind = SHIFT, Print, exec, grim - | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/$(date +'%Y%m%d_%H%M%S.png')           # Shift+Print: 全屏截图+编辑
+bind = CTRL, Print, exec, grim -g "$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')" - | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/$(date +'%Y%m%d_%H%M%S.png')  # Ctrl+Print: 窗口截图+编辑
+
+# 窗口移动（Vim 风格）
+bind = $mainMod SHIFT, h, movewindow, l
+bind = $mainMod SHIFT, l, movewindow, r
+bind = $mainMod SHIFT, k, movewindow, u
+bind = $mainMod SHIFT, j, movewindow, d
+
+# 窗口大小调整（Vim 风格）
+bind = $mainMod CTRL, h, resizeactive, -20 0
+bind = $mainMod CTRL, l, resizeactive, 20 0
+bind = $mainMod CTRL, k, resizeactive, 0 -20
+bind = $mainMod CTRL, j, resizeactive, 0 20
+
+# 窗口分组（标签页功能）
+bind = $mainMod, G, togglegroup
+bind = $mainMod, TAB, changegroupactive, f
+bind = $mainMod SHIFT, TAB, changegroupactive, b
+
+# 窗口居中
+bind = $mainMod SHIFT, C, centerwindow
+
+# Pin 窗口（固定在所有工作区显示）
+bind = $mainMod, O, pin
+
+# 切换平铺/浮动
+bind = $mainMod, T, togglefloating
+
+# 最小化窗口（移动到特殊工作区）
+bind = $mainMod, minus, movetoworkspace, special:minimized      # Super + -: 最小化窗口
+bind = $mainMod SHIFT, minus, togglespecialworkspace, minimized # Super + Shift + -: 显示/隐藏最小化工作区
+
+# 重载配置
+bind = $mainMod SHIFT, R, exec, hyprctl reload
+
+# 快速启动应用
+bind = $mainMod CTRL, T, exec, kitty --title=floating
+bind = $mainMod CTRL, B, exec, firefox
+bind = $mainMod CTRL, F, exec, nautilus
+
+# 多媒体按键 (音量, 亮度, 播放控制)
+bindel = ,XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
+bindel = ,XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindel = ,XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindel = ,XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindel = ,XF86MonBrightnessUp, exec, brightnessctl s 5%+
+bindel = ,XF86MonBrightnessDown, exec, brightnessctl s 5%-
+bindl = , XF86AudioNext, exec, playerctl next
+bindl = , XF86AudioPlay, exec, playerctl play-pause
+bindl = , XF86AudioPrev, exec, playerctl previous
+
+
+##############################
+### 窗口与工作区规则 ###
+##############################
+
+# 窗口规则: 抑制所有应用发来的最大化请求 (让 Hyprland 自己来管理窗口大小)
+windowrulev2 = suppressevent maximize, class:.*
+
+# 窗口规则: 修复部分 XWayland 应用 (如一些 Java 程序) 的拖动问题
+windowrulev2 = nofocus, class:^$, title:^$, xwayland:1, floating:1, fullscreen:0, pinned:0
+
+# 常用应用窗口规则
+# 文件选择器浮动
+windowrulev2 = float, class:^(xdg-desktop-portal-gtk)$
+windowrulev2 = size 900 600, class:^(xdg-desktop-portal-gtk)$
+
+# Dolphin 文件操作窗口浮动并居中
+windowrulev2 = float, class:^(org.kde.dolphin)$, title:^(Copying|Moving)
+windowrulev2 = center, class:^(org.kde.dolphin)$, title:^(Copying|Moving)
+
+# 音量控制窗口浮动
+windowrulev2 = float, class:^(pavucontrol)$
+windowrulev2 = size 800 600, class:^(pavucontrol)$
+windowrulev2 = center, class:^(pavucontrol)$
+
+# 图片查看器浮动
+windowrulev2 = float, class:^(org.gnome.eog|imv|feh)$
+
+# 计算器浮动
+windowrulev2 = float, class:^(org.kde.kcalc|gnome-calculator)$
+windowrulev2 = size 400 500, class:^(org.kde.kcalc|gnome-calculator)$
+
+# Rofi/Wofi 启动器规则
+windowrulev2 = float, class:^(Rofi|wofi)$
+windowrulev2 = stayfocused, class:^(Rofi|wofi)$
+
+# Firefox 画中画浮动并固定
+windowrulev2 = float, class:^(firefox)$, title:^(Picture-in-Picture)$
+windowrulev2 = pin, class:^(firefox)$, title:^(Picture-in-Picture)$
+windowrulev2 = size 640 360, class:^(firefox)$, title:^(Picture-in-Picture)$
+
+# 工作区规则示例:
+# 将工作区1绑定到名为 DP-1 的显示器上，并设为默认
+# workspace = 1, monitor:DP-1, default:true

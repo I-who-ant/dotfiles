@@ -1,0 +1,16 @@
+monitor=,preferred,auto,auto
+
+$terminal = kitty
+$menu = rofi -show drun
+
+exec-once = waybar
+
+general {
+    gaps_in = 5
+    gaps_out = 0
+    border_size = 2
+}
+
+bind = SUPER, Return, exec, $terminal
+bind = SUPER, Q, killactive
+bind = SUPER, D, exec, $menu

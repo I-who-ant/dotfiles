@@ -1,0 +1,76 @@
+general {
+    grace = 3                # 锁屏后3秒宽限期（可以直接动鼠标解锁）
+    hide_cursor = true       # 锁屏时隐藏光标
+    no_fade_in = false       # 启用淡入动画
+}
+
+# 背景（带模糊效果）
+background {
+    monitor =
+    path = ~/Pictures/wallpaper.png   # 壁纸路径，请根据实际修改
+    blur_passes = 3                   # 模糊强度
+    blur_size = 8
+}
+
+# 密码输入框
+input-field {
+    monitor =
+    size = 300, 50
+    outline_thickness = 3
+    dots_size = 0.2
+    dots_spacing = 0.15
+    dots_center = true
+
+    # 颜色配置
+    outer_color = rgb(33ccff)         # 外边框颜色（与 hyprland.conf 主题一致）
+    inner_color = rgb(1a1a1a)         # 内部背景色
+    font_color = rgb(ffffff)          # 文字颜色
+
+    fade_on_empty = false
+    placeholder_text = <i>输入密码...</i>
+    hide_input = false
+
+    # 位置（屏幕中心）
+    position = 0, -20
+    halign = center
+    valign = center
+}
+
+# 时间显示
+label {
+    monitor =
+    text = $TIME
+    color = rgba(255, 255, 255, 1.0)
+    font_size = 55
+    font_family = Noto Sans
+
+    position = 0, 80
+    halign = center
+    valign = center
+}
+
+# 日期显示
+label {
+    monitor =
+    text = cmd[update:1000] echo "$(date +'%A, %B %d')"
+    color = rgba(255, 255, 255, 0.8)
+    font_size = 20
+    font_family = Noto Sans
+
+    position = 0, 40
+    halign = center
+    valign = center
+}
+
+# 用户名显示
+label {
+    monitor =
+    text = $USER
+    color = rgba(255, 255, 255, 0.6)
+    font_size = 16
+    font_family = Noto Sans
+
+    position = 0, -100
+    halign = center
+    valign = center
+}
