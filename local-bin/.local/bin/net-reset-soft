@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+log() {
+    printf '[net-reset-soft] %s\n' "$*"
+}
+
+need_cmd() {
+    command -v "$1" >/dev/null 2>&1 || {
+        printf 'Missing command: %s\n' "$1" >&2
+        exit 1
+    }
+}
+
+sudo_run() {
+    if command -v sudo >/dev/null 2>&1; then
+        if [[ -n "${SUDO_ASKPASS:-}" ]]; then
+            sudo -A "$@"
+        else
+            sudo "$@"
+        fi
+    else
+        "$@"
+    fi
+}
+
+kill_edge() {
+    log "closing Edge related processes"
+    pkill -f '/opt/microsoft/msedge/msedge' 2>/dev/null || true
+    pkill -f 'msedge_crashpad_handler' 2>/dev/null || true
+}
+
+current_proxy_mode() {
+    gsettings get org.gnome.system.proxy mode | tr -d "'"
+}
+
+restore_proxy_mode() {
+    local mode="${1:-none}"
+    log "restoring proxy mode: ${mode}"
+    gsettings set org.gnome.system.proxy mode "$mode"
+}
+
+restart_proxy_stack() {
+    log "restarting clash-verge-service"
+    sudo_run systemctl restart clash-verge-service
+}
+
+reconnect_wifi() {
+    local wifi_line wifi_dev wifi_conn
+
+    wifi_line="$(nmcli -t -f DEVICE,TYPE,STATE,CONNECTION device | awk -F: '$2=="wifi" && $3 ~ /^connected/ {print; exit}')"
+    if [[ -z "${wifi_line}" ]]; then
+        log "no active wifi connection found, skipping wifi reconnect"
+        return 0
+    fi
+
+    IFS=: read -r wifi_dev _ _ wifi_conn <<< "${wifi_line}"
+    log "reconnecting wifi device=${wifi_dev} connection=${wifi_conn}"
+
+    nmcli connection down id "${wifi_conn}" || nmcli device disconnect "${wifi_dev}" || true
+    sleep 2
+    nmcli connection up id "${wifi_conn}"
+}
+
+print_summary() {
+    log "current network summary"
+    nmcli -t -f DEVICE,TYPE,STATE,CONNECTION device
+    printf '\n'
+    gsettings get org.gnome.system.proxy mode
+    printf '\n'
+    sed -n '1,8p' /etc/resolv.conf
+}
+
+main() {
+    local original_proxy_mode
+
+    need_cmd pkill
+    need_cmd nmcli
+    need_cmd gsettings
+    need_cmd systemctl
+
+    original_proxy_mode="$(current_proxy_mode)"
+    log "original proxy mode: ${original_proxy_mode}"
+
+    kill_edge
+    log "temporarily disabling desktop proxy"
+    gsettings set org.gnome.system.proxy mode 'none'
+    restart_proxy_stack
+    reconnect_wifi
+    restore_proxy_mode "${original_proxy_mode}"
+    sleep 2
+    print_summary
+}
+
+main "$@"

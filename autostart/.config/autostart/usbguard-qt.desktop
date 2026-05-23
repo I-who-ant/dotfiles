@@ -1,0 +1,10 @@
+[Desktop Entry]
+Categories=System;
+Comment=USBGuard-Qt
+Exec=usbguard-qt
+GenericName=USBGuard
+Icon=usbguard-icon
+Keywords=USB;USBGuard;Qt;
+Name=USBGuard
+TryExec=usbguard-qt
+Type=Application

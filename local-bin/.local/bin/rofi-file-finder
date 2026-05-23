@@ -1,0 +1,15 @@
+#!/bin/bash
+# Rofi 文件查找器
+
+# 搜索目录（可以修改）
+SEARCH_DIR="${1:-$HOME}"
+EMACS_LAUNCHER="$HOME/.local/bin/emacs-launch.sh"
+
+# 使用 fd 搜索文件并用 rofi 显示
+selected=$(fd . "$SEARCH_DIR" --type f --hidden --exclude .git --exclude node_modules \
+    | rofi -dmenu -i -p "查找文件" -theme ~/.config/rofi/launchers/type-1/style-1.rasi)
+
+# 直接交给 Emacs，绕过 xdg-open / desktop Exec 的引号地雷链路
+if [ -n "$selected" ]; then
+    "$EMACS_LAUNCHER" "$selected" &
+fi

@@ -1,0 +1,6 @@
+build/
+*.userdb/
+sync/
+user.yaml
+installation.yaml
+rime-ice/

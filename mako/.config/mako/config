@@ -1,0 +1,87 @@
+# =============================================================
+# Mako Configuration - A Modern & "Good-looking" Setup
+# =============================================================
+# 基于 man 5 mako 手册和用户需求进行配置
+# 所有注释均已修正为独占一行
+
+# --- 全局基础设置 ---
+# font: 使用 Pango 字体描述。这里选择一个常见的等宽字体。
+font=Monospace 11
+
+# max-visible: 屏幕上最多同时显示多少条通知。
+max-visible=5
+
+# default-timeout: 通知默认显示多久（毫秒），0 表示永不超时。
+default-timeout=5000
+
+# sort: 通知排序方式。"-time" 表示最新的在最上面/最前面。
+sort=-time
+
+# --- 外观与布局 (Style Options) ---
+# anchor: 通知出现在屏幕的哪个位置。右上角是经典位置。
+anchor=top-right
+
+# background-color: 背景色 (Nord Polar Night)
+# 格式为 #RRGGBBAA，AA代表透明度。这里 FF 表示不透明。
+background-color=#2E3440FF
+
+# text-color: 文字颜色 (Nord Snow Storm)
+text-color=#ECEFF4FF
+
+# width: 通知的宽度（像素）。
+width=350
+
+# margin: 单个通知之间的外边距（上/下, 左/右）。
+margin=10,15
+
+# padding: 通知内部内容与边框的间距。
+padding=10
+
+# border-size: 边框宽度。
+border-size=2
+
+# border-color: 边框颜色 (Nord Frost)。
+border-color=#88C0D0FF
+
+# border-radius: 圆角半径！
+border-radius=8
+
+# icons: 是否显示图标 (1=是, 0=否)。
+icons=1
+
+# max-icon-size: 图标最大尺寸。
+max-icon-size=48
+
+# markup: 是否启用 Pango 标记语言，允许<b>粗体</b>等格式。
+markup=1
+
+# format: 通知的格式。%s=摘要(标题), %b=正文。<b>让标题加粗。
+format=<b>%s</b>\n%b
+
+
+# --- 交互行为 (Binding Options) ---
+# on-button-left: 鼠标左键点击通知。执行通知的默认操作（比如打开链接）。
+on-button-left=invoke-default-action
+
+# on-button-right: 鼠标右键点击通知。关闭该通知。
+on-button-right=dismiss
+
+# on-touch: 在触摸屏上点击。关闭该通知。
+on-touch=dismiss
+
+
+# --- 根据紧急程度定义不同样式 (Criteria) ---
+# 这是一个高级用法，可以为不同类型的通知设置不同颜色。
+
+[urgency=normal]
+# 使用上面定义的默认样式
+# Nord Frost (Blue)
+border-color=#88C0D0FF
+
+[urgency=critical]
+# 对于紧急通知，使用更醒目的颜色，并且永不超时。
+# Nord Aurora (Red)
+border-color=#BF616AFF
+text-color=#ECEFF4FF
+default-timeout=0
+font=Monospace Bold 11

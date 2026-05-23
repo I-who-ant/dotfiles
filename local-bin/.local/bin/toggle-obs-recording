@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# OBS 录屏切换脚本
+
+OBS_HOST="localhost"
+OBS_PORT="4455"
+OBS_PASSWORD_FILE="${OBS_PASSWORD_FILE:-/home/seeback/learingProject/seeback/some-keys/obs-recording.env}"
+
+if [[ -z "${OBS_PASSWORD:-}" && -r "$OBS_PASSWORD_FILE" ]]; then
+    # shellcheck disable=SC1090
+    source "$OBS_PASSWORD_FILE"
+fi
+
+if [[ -z "${OBS_PASSWORD:-}" ]]; then
+    echo "OBS_PASSWORD is not set" >&2
+    exit 1
+fi
+
+# 检查 OBS 是否运行
+if ! pgrep -x obs > /dev/null; then
+    notify-send "OBS 录屏" "OBS 未运行，正在启动..." -i obs
+    obs &
+    sleep 5
+fi
+
+# 切换录制状态
+obs-cli --host "$OBS_HOST" --port "$OBS_PORT" --password "$OBS_PASSWORD" recording toggle 2>&1 | while read -r line; do
+    if echo "$line" | grep -q "started"; then
+        notify-send "OBS 录屏" "录屏已开始" -i media-record
+    elif echo "$line" | grep -q "stopped"; then
+        notify-send "OBS 录屏" "录屏已停止" -i media-playback-stop
+    fi
+done

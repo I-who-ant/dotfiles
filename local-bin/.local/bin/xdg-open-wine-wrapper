@@ -1,0 +1,10 @@
+#!/bin/bash
+# Wine-safe xdg-open wrapper
+if [[ "$1" =~ ^https?:// ]]; then
+    # 对于 HTTP(S) 链接，使用系统默认浏览器
+    /usr/bin/xdg-open "$1" 2>/dev/null &
+    exit 0
+else
+    # 其他情况直接调用原始 xdg-open
+    exec /usr/bin/xdg-open "$@"
+fi

@@ -1,0 +1,20 @@
+# Byte-compiled artifacts
+*.elc
+
+# Emacs backup / autosave / lock
+*~
+\#*\#
+.\#*
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Generated docs and calibration notebooks stay local for now.
+docs/
+
+# Generated calibration history (kept under docs/, but raw trace dumps shouldn't pollute commits)
+docs/calibration-history/**/trace-*.json
+
+# Local-only overrides
+*.local.el

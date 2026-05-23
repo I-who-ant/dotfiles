@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# 录屏切换脚本 - 使用 wf-recorder
+
+RECORDING_PID_FILE="/tmp/wf-recorder.pid"
+RECORDING_DIR="$HOME/Videos/Recordings"
+
+# 创建录屏目录
+mkdir -p "$RECORDING_DIR"
+
+# 检查是否正在录屏
+if [ -f "$RECORDING_PID_FILE" ]; then
+    # 停止录屏
+    PID=$(cat "$RECORDING_PID_FILE")
+    if kill -0 "$PID" 2>/dev/null; then
+        kill -INT "$PID"
+        rm "$RECORDING_PID_FILE"
+        notify-send "录屏" "录屏已停止" -i video-x-generic
+    else
+        rm "$RECORDING_PID_FILE"
+        notify-send "录屏" "录屏进程不存在" -i dialog-error
+    fi
+else
+    # 开始录屏（包含音频）
+    FILENAME="$RECORDING_DIR/recording_$(date +'%Y%m%d_%H%M%S').mp4"
+    # 获取默认音频输出的监视器设备
+    DEFAULT_SINK=$(pactl get-default-sink)
+    AUDIO_DEVICE="${DEFAULT_SINK}.monitor"
+    wf-recorder -a="$AUDIO_DEVICE" --audio-backend=pipewire -f "$FILENAME" &
+    echo $! > "$RECORDING_PID_FILE"
+    notify-send "录屏" "录屏已开始（含音频）\n音频设备: $AUDIO_DEVICE\n保存到: $FILENAME" -i video-x-generic
+fi

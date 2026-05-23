@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Cherry Studio
+Exec='/tmp/.mount_Cherry1eH5ls/cherrystudio' %U
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/cherrystudio;
+NoDisplay=true

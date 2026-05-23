@@ -1,0 +1,19 @@
+[Desktop Entry]
+Name=Cursor (ccursor)
+Comment=Patched Cursor AppImage launcher
+GenericName=Text Editor
+Exec=/home/seeback/Applications/Cursor-3.0.16-unpacked/AppRun %F
+Icon=/home/seeback/Applications/Cursor-3.0.16-unpacked/usr/share/icons/hicolor/256x256/apps/cursor.png
+Type=Application
+StartupNotify=false
+StartupWMClass=Cursor
+Categories=TextEditor;Development;IDE;
+MimeType=application/x-cursor-workspace;
+Actions=new-empty-window;
+Keywords=cursor;ai;editor;
+
+[Desktop Action new-empty-window]
+Name=New Empty Window
+Name[zh_CN]=新建空窗口
+Exec=/home/seeback/Applications/Cursor-3.0.16-unpacked/AppRun --new-window %F
+Icon=/home/seeback/Applications/Cursor-3.0.16-unpacked/usr/share/icons/hicolor/256x256/apps/cursor.png

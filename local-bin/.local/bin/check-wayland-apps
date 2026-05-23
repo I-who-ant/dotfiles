@@ -1,0 +1,27 @@
+#!/bin/bash
+# 检查正在运行的应用使用的是 Wayland 还是 XWayland
+# 使用方法: ./check-wayland-apps.sh
+
+echo "========================================="
+echo "当前运行的应用及其渲染后端"
+echo "========================================="
+echo
+
+hyprctl clients -j | jq -r '.[] | "\(.class) - \(.title) - \(if .xwayland then "❌ XWayland (模糊)" else "✅ Wayland (清晰)" end)"' | column -t -s '-'
+
+echo
+echo "========================================="
+echo "统计信息"
+echo "========================================="
+TOTAL=$(hyprctl clients -j | jq '. | length')
+XWAYLAND=$(hyprctl clients -j | jq '[.[] | select(.xwayland == true)] | length')
+WAYLAND=$((TOTAL - XWAYLAND))
+
+echo "总应用数: $TOTAL"
+echo "Wayland 原生: $WAYLAND ✅"
+echo "XWayland (可能模糊): $XWAYLAND ❌"
+echo
+echo "提示："
+echo "  - Chrome/Chromium: 访问 chrome://flags 搜索 'ozone'，选择 'Wayland'"
+echo "  - Electron 应用: 重启后会自动使用 Wayland"
+echo "  - 其他应用: 可能需要特定启动参数"

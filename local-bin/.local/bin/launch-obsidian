@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Obsidian 启动/切换脚本
+
+# 检查 Obsidian 是否运行
+if pgrep -x obsidian > /dev/null; then
+    # Obsidian 已运行，切换到工作区 5
+    hyprctl dispatch workspace 5
+else
+    # Obsidian 未运行，启动它
+    obsidian &
+fi

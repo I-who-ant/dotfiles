@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# OBS 启动/切换脚本
+
+# 检查 OBS 是否运行
+if pgrep -x obs > /dev/null; then
+    # OBS 已运行，切换到工作区 8
+    hyprctl dispatch workspace 8
+else
+    # OBS 未运行，启动它
+    obs &
+fi
