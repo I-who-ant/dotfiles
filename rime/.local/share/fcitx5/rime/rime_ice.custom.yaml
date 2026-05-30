@@ -1,8 +1,15 @@
 patch:
+  translator/dictionary: rime_ice_seeback
   grammar:
     language: wanxiang-lts-zh-hans
-    collocation_max_length: 5
+    collocation_max_length: 4
     collocation_min_length: 2
   translator/contextual_suggestions: true
-  translator/max_homophones: 7
-  translator/max_homographs: 7
+  translator/enable_completion: false
+  translator/enable_word_completion: false
+  translator/max_homophones: 5
+  translator/max_homographs: 5
+  long_word_filter/count: 1
+  long_word_filter/idx: 5
+  custom_phrase/user_dict: tech_phrase
+  custom_phrase/db_class: tabledb

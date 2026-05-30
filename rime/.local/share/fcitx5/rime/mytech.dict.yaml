@@ -1,0 +1,352 @@
+# Rime dictionary
+# encoding: utf-8
+
+---
+name: mytech
+version: "2026-05-28"
+sort: by_weight
+use_preset_vocabulary: false
+...
+
+# 数学 / 数理
+线性空间	xian xing kong jian	1200
+赋范空间	fu fan kong jian	1000
+内积空间	nei ji kong jian	1000
+欧几里得空间	ou ji li de kong jian	1000
+特征多项式	te zheng duo xiang shi	1000
+相似变换	xiang si bian huan	900
+正交变换	zheng jiao bian huan	900
+奇异值分解	qi yi zhi fen jie	1100
+主成分分析	zhu cheng fen fen xi	1000
+极大似然估计	ji da si ran gu ji	1100
+贝叶斯公式	bei ye si gong shi	1000
+先验概率	xian yan gai lv	1000
+后验概率	hou yan gai lv	1000
+随机变量	sui ji bian liang	1000
+条件期望	tiao jian qi wang	900
+协方差矩阵	xie fang cha ju zhen	1000
+偏导数	pian dao shu	900
+方向导数	fang xiang dao shu	900
+梯度向量	ti du xiang liang	1000
+海森矩阵	hai sen ju zhen	900
+凸优化	tu you hua	1000
+拉格朗日对偶	la ge lang ri dui ou	900
+
+# 算法 / 数据结构
+复杂度分析	fu za du fen xi	1200
+均摊分析	jun tan fen xi	1000
+状态压缩	zhuang tai ya suo	1100
+记忆化搜索	ji yi hua sou suo	1000
+启发式搜索	qi fa shi sou suo	1000
+双端队列	shuang duan dui lie	900
+优先队列	you xian dui lie	900
+可持久化线段树	ke chi jiu hua xian duan shu	1000
+主席树	zhu xi shu	900
+树链剖分	shu lian pou fen	1000
+重链剖分	zhong lian pou fen	1000
+最小生成树	zui xiao sheng cheng shu	1100
+强连通分量	qiang lian tong fen liang	1000
+二分图匹配	er fen tu pi pei	1000
+网络流	wang luo liu	1000
+最大流	zui da liu	1100
+最小割	zui xiao ge	1000
+后缀树	hou zhui shu	900
+AC 自动机	ac zi dong ji	1000
+滚动哈希	gun dong ha xi	900
+离散化	li san hua	900
+坐标压缩	zuo biao ya suo	900
+莫队算法	mo dui suan fa	900
+基环树	ji huan shu	900
+
+# AI / 机器学习 / LLM
+机器学习	ji qi xue xi	1200
+深度学习	shen du xue xi	1200
+监督学习	jian du xue xi	1100
+无监督学习	wu jian du xue xi	1000
+自监督学习	zi jian du xue xi	1000
+迁移学习	qian yi xue xi	900
+小样本学习	xiao yang ben xue xi	900
+对比学习	dui bi xue xi	900
+表征学习	biao zheng xue xi	900
+多头注意力	duo tou zhu yi li	1000
+位置编码	wei zhi bian ma	1000
+因果掩码	yin guo yan ma	900
+温度参数	wen du can shu	900
+采样策略	cai yang ce lve	1000
+束搜索	shu sou suo	900
+思维链	si wei lian	1000
+函数调用	han shu diao yong	1000
+工具调用	gong ju diao yong	1000
+系统提示词	xi tong ti shi ci	900
+上下文学习	shang xia wen xue xi	900
+零样本	ling yang ben	900
+少样本	shao yang ben	900
+幻觉问题	huan jue wen ti	1000
+知识蒸馏	zhi shi zheng liu	900
+量化推理	liang hua tui li	900
+推理延迟	tui li yan chi	900
+
+
+# AI 常用术语（从 tech_phrase 下放，避免单音节抢首位）
+卷积神经网络	juan ji shen jing wang luo	1080
+循环神经网络	xun huan shen jing wang luo	1020
+注意力机制	zhu yi li ji zhi	1080
+Transformer	transformer	980
+大语言模型	da yu yan mo xing	1100
+提示工程	ti shi gong cheng	1080
+上下文窗口	shang xia wen chuang kou	980
+向量数据库	xiang liang shu ju ku	980
+嵌入向量	qian ru xiang liang	950
+检索增强生成	jian suo zeng qiang sheng cheng	980
+参数高效微调	can shu gao xiao wei tiao	980
+监督微调	jian du wei tiao	1020
+强化学习	qiang hua xue xi	1050
+损失函数	sun shi han shu	980
+梯度下降	ti du xia jiang	1000
+反向传播	fan xiang chuan bo	1000
+过拟合	guo ni he	980
+欠拟合	qian ni he	980
+# 编程语言 / 编译器
+语义分析	yu yi fen xi	1200
+词法分析	ci fa fen xi	1100
+语法分析	yu fa fen xi	1100
+递归下降	di gui xia jiang	1000
+运算符优先级	yun suan fu you xian ji	1000
+语法制导翻译	yu fa zhi dao fan yi	900
+抽象解释	chou xiang jie shi	900
+数据流分析	shu ju liu fen xi	1000
+活跃变量	huo yue bian liang	900
+公共子表达式消除	gong gong zi biao da shi xiao chu	900
+死代码消除	si dai ma xiao chu	1000
+寄存器分配	ji cun qi fen pei	1000
+指令选择	zhi ling xuan ze	900
+目标代码生成	mu biao dai ma sheng cheng	900
+未定义行为	wei ding yi xing wei	1000
+所有权系统	suo you quan xi tong	900
+借用检查	jie yong jian cha	800
+生命周期	sheng ming zhou qi	900
+泛型编程	fan xing bian cheng	1000
+元编程	yuan bian cheng	900
+
+# 系统 / 工程
+操作系统	cao zuo xi tong	1200
+文件系统	wen jian xi tong	1100
+虚拟文件系统	xu ni wen jian xi tong	900
+页缓存	ye huan cun	900
+写时复制	xie shi fu zhi	1000
+中断处理	zhong duan chu li	900
+上下文切换	shang xia wen qie huan	1000
+临界区	lin jie qu	900
+互斥锁	hu chi suo	1000
+读写锁	du xie suo	900
+无锁编程	wu suo bian cheng	900
+内存屏障	nei cun ping zhang	1000
+缓存一致性	huan cun yi zhi xing	900
+事件循环	shi jian xun huan	1000
+反应堆模式	fan ying dui mo shi	900
+背压	bei ya	900
+可观测性	ke guan ce xing	1000
+日志聚合	ri zhi ju he	800
+指标监控	zhi biao jian kong	900
+链路追踪	lian lu zhui zong	900
+灰度发布	hui du fa bu	900
+蓝绿部署	lan lv bu shu	900
+滚动发布	gun dong fa bu	900
+服务发现	fu wu fa xian	900
+配置中心	pei zhi zhong xin	900
+
+# 技术写作常用句
+时间复杂度为	shi jian fu za du wei	1200
+空间复杂度为	kong jian fu za du wei	1200
+该算法的核心思想是	gai suan fa de he xin si xiang shi	1100
+可以将问题转化为	ke yi jiang wen ti zhuan hua wei	1100
+在极端情况下	zai ji duan qing kuang xia	1000
+本质上是在处理	ben zhi shang shi zai chu li	900
+这里的关键在于	zhe li de guan jian zai yu	900
+可以进一步优化为	ke yi jin yi bu you hua wei	900
+需要注意的是	xu yao zhu yi de shi	900
+工程上通常会采用	gong cheng shang tong chang hui cai yong	900
+
+
+# 从 tech_phrase 下放的普通术语（2026-05-28）
+线性代数	xian xing dai shu	1120
+离散数学	li san shu xue	1120
+高等数学	gao deng shu xue	1080
+概率论	gai lv lun	1080
+数理统计	shu li tong ji	1080
+偏微分方程	pian wei fen fang cheng	1120
+常微分方程	chang wei fen fang cheng	1060
+拉格朗日乘子法	la ge lang ri cheng zi fa	1120
+傅里叶变换	fu li ye bian huan	1100
+拉普拉斯变换	la pu la si bian huan	1080
+泰勒展开	tai le zhan kai	1060
+矩阵分解	ju zhen fen jie	1060
+特征值	te zheng zhi	1040
+特征向量	te zheng xiang liang	1040
+数据结构	shu ju jie gou	1040
+算法设计	suan fa she ji	1040
+时间复杂度	shi jian fu za du	1120
+空间复杂度	kong jian fu za du	1120
+渐近复杂度	jian jin fu za du	1080
+动态规划	dong tai gui hua	1080
+贪心算法	tan xin suan fa	1040
+分治算法	fen zhi suan fa	1040
+深度优先搜索	shen du you xian sou suo	1060
+广度优先搜索	guang du you xian sou suo	1060
+最短路径	zui duan lu jing	1060
+拓扑排序	tuo pu pai xu	1060
+并查集	bing cha ji	1100
+线段树	xian duan shu	1100
+树状数组	shu zhuang shu zu	1100
+平衡二叉树	ping heng er cha shu	1020
+红黑树	hong hei shu	1100
+二叉堆	er cha dui	1020
+单调栈	dan diao zhan	1100
+单调队列	dan diao dui lie	1080
+哈希表	ha xi biao	1040
+后缀数组	hou zhui shu zu	1100
+后缀自动机	hou zhui zi dong ji	1120
+字典树	zi dian shu	1060
+稀疏表	xi shu biao	1020
+编译原理	bian yi yuan li	1060
+抽象语法树	chou xiang yu fa shu	1120
+中间表示	zhong jian biao shi	1080
+控制流图	kong zhi liu tu	1080
+静态分析	jing tai fen xi	1060
+符号执行	fu hao zhi xing	1060
+内存模型	nei cun mo xing	1040
+并发编程	bing fa bian cheng	1040
+系统调用	xi tong diao yong	1080
+虚拟内存	xu ni nei cun	1100
+页表	ye biao	1020
+进程调度	jin cheng diao du	1040
+线程同步	xian cheng tong bu	1040
+死锁	si suo	1020
+容器运行时	rong qi yun xing shi	1020
+持续集成	chi xu ji cheng	1020
+持续交付	chi xu jiao fu	1020
+技术债	ji shu zhai	1000
+回归测试	hui gui ce shi	1040
+性能瓶颈	xing neng ping jing	1040
+# 笔记驱动补充词条（2026-05-28）
+
+# Agent / LLM / 架构
+审批中断	shen pi zhong duan	900
+人工接管	ren gong jie guan	900
+循环控制	xun huan kong zhi	1000
+任务推进	ren wu tui jin	1000
+最小闭环	zui xiao bi huan	900
+消息循环	xiao xi xun huan	1000
+状态机视角	zhuang tai ji shi jiao	900
+观察回写	guan cha hui xie	900
+上下文工程	shang xia wen gong cheng	1100
+遗忘治理	yi wang zhi li	900
+压缩锚点	ya suo mao dian	900
+多 Agent 协作	duo agent xie zuo	1000
+子 Agent	zi agent	900
+委派归并	wei pai gui bing	900
+工具契约	gong ju qi yue	1000
+工具分发	gong ju fen fa	900
+工具回写	gong ju hui xie	900
+任务外壳	ren wu wai ke	850
+控制面	kong zhi mian	1000
+查询引擎	cha xun yin qing	900
+运行时桥接	yun xing shi qiao jie	900
+远程会话	yuan cheng hui hua	900
+插件生命周期	cha jian sheng ming zhou qi	900
+提示缓存	ti shi huan cun	850
+模型选择	mo xing xuan ze	850
+
+# 编译器 / 前端 / IDE
+预处理器	yu chu li qi	1100
+宏展开	hong zhan kai	1200
+对象宏	dui xiang hong	900
+函数宏	han shu hong	900
+条件编译	tiao jian bian yi	1000
+头文件保护	tou wen jian bao hu	900
+语句表达式	yu ju biao da shi	1000
+复合字面量	fu he zi mian liang	1000
+指定初始化器	zhi ding chu shi hua qi	1000
+柔性数组成员	rou xing shu zu cheng yuan	1000
+匿名结构体	ni ming jie gou ti	900
+匿名联合体	ni ming lian he ti	900
+位字段	wei zi duan	1000
+零宽位字段	ling kuan wei zi duan	850
+复合赋值	fu he fu zhi	900
+三元运算符	san yuan yun suan fu	900
+逗号运算符	dou hao yun suan fu	850
+可变长数组	ke bian chang shu zu	1000
+函数指针	han shu zhi zhen	1000
+默认实参提升	mo ren shi can ti sheng	850
+通常算术转换	tong chang suan shu zhuan huan	900
+类型说明符	lei xing shuo ming fu	850
+对齐说明符	dui qi shuo ming fu	850
+类型推导	lei xing tui dao	1000
+通用选择	tong yong xuan ze	850
+属性对齐	shu xing dui qi	850
+打包属性	da bao shu xing	850
+行标记指令	xing biao ji zhi ling	800
+错误指令	cuo wu zhi ling	800
+宽字符串字面量	kuan zi fu chuan zi mian liang	850
+UTF 八字符串字面量	utf ba zi fu chuan zi mian liang	700
+UTF 十六字符串字面量	utf shi liu zi fu chuan zi mian liang	700
+UTF 三十二字符串字面量	utf san shi er zi fu chuan zi mian liang	700
+红绿树	hong lv shu	1000
+持久化数据结构	chi jiu hua shu ju jie gou	900
+语法 Trivia	yu fa trivia	700
+语法节点	yu fa jie dian	850
+语法 Token	yu fa token	700
+增量分析	zeng liang fen xi	1000
+增量语法分析	zeng liang yu fa fen xi	900
+Rope	rope	800
+Piece Table	piece table	800
+Gap Buffer	gap buffer	800
+
+# 系统 / 嵌入式 / 桌面
+板级 bring-up	ban ji bring up	800
+板级调试	ban ji tiao shi	1000
+设备树	she bei shu	1000
+引导加载程序	yin dao jia zai cheng xu	850
+BootROM	bootrom	800
+Bootloader	bootloader	900
+GPIO	gpio	900
+DMA	dma	900
+中断控制器	zhong duan kong zhi qi	900
+信号量	xin hao liang	1000
+消息队列	xiao xi dui lie	900
+UART	uart	900
+I2C	i2c	900
+SPI	spi	900
+CAN 总线	can zong xian	850
+Unix 域套接字	unix yu tao jie zi	900
+D-Bus	d bus	900
+socket 激活	socket ji huo	850
+systemd 用户服务	systemd yong hu fu wu	850
+桌面入口	zhuo mian ru kou	900
+默认应用	mo ren ying yong	850
+MIME 类型	mime lei xing	800
+单实例应用	dan shi li ying yong	850
+
+# 图形 / 渲染 / 引擎
+光栅化管线	guang shan hua guan xian	900
+空间变换	kong jian bian huan	900
+软件渲染	ruan jian xuan ran	900
+渲染通道	xuan ran tong dao	850
+材质系统	cai zhi xi tong	850
+场景图	chang jing tu	900
+资源导入管线	zi yuan dao ru guan xian	850
+主循环	zhu xun huan	950
+时间步	shi jian bu	850
+事件分发	shi jian fen fa	850
+QueryEngine	queryengine	800
+Runtime Bridge	runtime bridge	750
+MCP	mcp	850
+Red-Green Tree	red green tree	750
+Device Tree	device tree	750
+
+# 语气词 / 风格词
+喵	miao	320000
+喵喵	miao miao	180000
+喵呜	miao wu	120000
+喵化	miao hua	100000
+喵一下	miao yi xia	100000

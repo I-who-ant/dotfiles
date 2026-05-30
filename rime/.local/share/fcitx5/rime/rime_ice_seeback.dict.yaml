@@ -1,0 +1,14 @@
+# Rime dictionary
+# encoding: utf-8
+
+---
+name: rime_ice_seeback
+version: "2026-05-28"
+import_tables:
+  - rime-ice/cn_dicts/8105
+  - mytech
+  - rime-ice/cn_dicts/base
+  - rime-ice/cn_dicts/ext
+  - rime-ice/cn_dicts/tencent
+  - rime-ice/cn_dicts/others
+...

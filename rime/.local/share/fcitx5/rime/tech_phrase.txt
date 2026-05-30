@@ -1,0 +1,41 @@
+# Rime table
+#@/db_name	tech_phrase.txt
+#@/db_type	tabledb
+#@/tick	4
+并查集	bcj	103
+板级 bring-up	bjbu	100
+抽象语法树	cxyfs	100
+多 Agent 协作	dagentxz	100
+单调队列	dddl	100
+大语言模型	dyymx	100
+单调栈	dzz	100
+工具契约	gjqy	100
+好的喵	hdm	100
+红黑树	hhs	100
+好喵	hmiao	100
+后缀数组	hzsz	100
+后缀自动机	hzzdj	100
+结束喵	jsm	100
+继续喵	jxm	100
+空间复杂度	kjfzd	100
+开始喵	ksm	100
+可以喵	kym	100
+控制流图	kzlt	100
+拉格朗日乘子法	lglrczf	100
+喵	mm	101
+喵~	mmw	100
+没问题喵	mwtm	100
+呢喵	nm	100
+偏微分方程	pwffc	100
+收到喵	sdm	100
+时间复杂度	sjfzd	100
+上下文工程	sxwgc	100
+树状数组	szszh	100
+是这样喵	szym	100
+提示工程	tsgc	100
+Unix 域套接字	unixytjz	100
+线段树	xds	100
+虚拟内存	xnnc	100
+系统调用	xtdy	100
+中间表示	zjbs	100
+这样喵	zym	100
