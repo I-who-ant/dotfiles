@@ -304,3 +304,170 @@ systemctl --user daemon-reload
 - 私有数据留本地
 - 同步前先 `--dry-run`
 - 看到 `git diff` 再提交
+
+## 实战操作手册
+
+这一节只讲“我现在手上有一个本地配置，要怎么纳入仓库并接入后续同步”。
+
+### 先判断是哪一类
+
+#### 1. 已有模块里的已有文件
+
+例子：
+- `~/.config/zsh/modules/environment.zsh`
+- `~/.local/share/applications/emacs.desktop`
+
+这种文件已经在仓库里被跟踪了，直接同步即可：
+
+```bash
+./scripts/sync-dotfiles-from-live.sh zsh local-apps
+git diff
+git add zsh local-apps
+git commit -m "..."
+```
+
+#### 2. 已有模块里的新文件
+
+例子：
+- `~/.config/zsh/modules/foo.zsh`
+- `~/.local/share/applications/bar.desktop`
+
+这种最适合用：
+
+```bash
+./scripts/adopt-live-config.sh zsh .config/zsh/modules/foo.zsh
+./scripts/adopt-live-config.sh local-apps .local/share/applications/bar.desktop
+```
+
+如果是目录：
+
+```bash
+./scripts/adopt-live-config.sh -d hypr .config/hypr/plugins
+```
+
+然后：
+
+```bash
+git diff -- zsh
+git add zsh
+git commit -m "zsh: add foo module"
+```
+
+**结论**：
+- 普通模块只要 `git add` 过一次
+- 以后它就会自动进入 `live <-> repo` 双向同步
+
+#### 3. 特殊模块里的新路径
+
+当前特殊模块主要有：
+- `rime`
+- `browser-flags`
+- `pavucontrol`
+- `git`
+- `htop`
+
+它们不是纯“已跟踪文件自动同步”，而是脚本里写了显式规则。
+
+所以流程是：
+
+1. 先把文件收进仓库
+2. 再补两个同步脚本规则
+
+例如：
+
+```bash
+./scripts/adopt-live-config.sh rime .local/share/fcitx5/rime/new.dict.yaml
+```
+
+然后手工补：
+- `scripts/sync-module-from-live.sh`
+- `scripts/sync-module-to-live.sh`
+
+最后测试：
+
+```bash
+./scripts/sync-rime-from-live.sh --dry-run
+./scripts/sync-rime-to-live.sh --dry-run
+```
+
+#### 4. 全新模块
+
+例子：
+- 你要新收 `~/.config/foo/`
+- 或像这次真实示例一样，新收 `~/.config/ghostty/`
+
+先跑脚手架：
+
+```bash
+./scripts/scaffold-sync-module.sh foo .config/foo
+```
+
+它会帮你：
+- 建模块目录
+- 建 `sync-foo-from-live.sh`
+- 建 `sync-foo-to-live.sh`
+- 打印后续要补的主脚本步骤
+
+然后按提示继续：
+
+```bash
+rsync -av ~/.config/foo/ foo/.config/foo/
+./scripts/sync-foo-from-live.sh --dry-run
+./scripts/sync-foo-to-live.sh --dry-run
+git add foo scripts/sync-foo-from-live.sh scripts/sync-foo-to-live.sh
+git commit -m "dotfiles: add foo module"
+```
+
+### 一张决策表
+
+| 场景 | 怎么做 |
+|---|---|
+| 已有模块里的已跟踪文件 | 直接 `sync-dotfiles-from-live.sh` |
+| 已有模块里的新文件 | `adopt-live-config.sh` |
+| 特殊模块新增路径 | `adopt-live-config.sh` + 补两个主同步脚本 |
+| 全新模块 | `scaffold-sync-module.sh` |
+
+### 真实例子：Ghostty
+
+这次已经把 `ghostty` 作为真实案例收进仓库。
+
+实际流程就是：
+
+```bash
+./scripts/scaffold-sync-module.sh ghostty .config/ghostty
+rsync -av ~/.config/ghostty/ ghostty/.config/ghostty/
+./scripts/sync-ghostty-from-live.sh --dry-run
+./scripts/sync-ghostty-to-live.sh --dry-run
+git add ghostty scripts/sync-ghostty-from-live.sh scripts/sync-ghostty-to-live.sh
+git commit -m "dotfiles: add ghostty as synced module example"
+```
+
+这就是以后新增模块的标准模板。
+
+### 最后记住四条命令
+
+收本机改动回仓库：
+
+```bash
+./scripts/sync-dotfiles-from-live.sh --dry-run
+./scripts/sync-dotfiles-from-live.sh
+```
+
+把仓库配置恢复回本机：
+
+```bash
+./scripts/sync-dotfiles-to-live.sh --dry-run
+./scripts/sync-dotfiles-to-live.sh
+```
+
+把新文件收编进已有模块：
+
+```bash
+./scripts/adopt-live-config.sh <module> <live-relative-path>
+```
+
+新建新模块：
+
+```bash
+./scripts/scaffold-sync-module.sh <module> <live-relative-path>
+```
