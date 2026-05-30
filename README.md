@@ -63,6 +63,7 @@ live($HOME)  <->  repo
 ### 4) 纳入仓库辅助脚本
 
 - `./scripts/adopt-live-config.sh`
+- `./scripts/scaffold-sync-module.sh`
 
 它用于把“当前只存在于本机、还没进入仓库”的配置，先收进仓库。
 
@@ -176,6 +177,12 @@ live($HOME)  <->  repo
 ### 情况 D：新模块
 
 比如你想新收一个 `foo` 模块，管理 `~/.config/foo/`：
+
+最省事的方式是先脚手架：
+
+```bash
+./scripts/scaffold-sync-module.sh foo .config/foo
+```
 
 1. 新建目录：
 
