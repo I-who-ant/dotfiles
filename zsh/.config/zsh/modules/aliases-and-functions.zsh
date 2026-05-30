@@ -8,7 +8,7 @@ alias kill-edge='pkill -f "/opt/microsoft/msedge/msedge"; pkill -f "msedge_crash
 unalias algo 2>/dev/null
 
 function algo() {
-    local cli="${ALGO_CLI:-/home/seeback/learingProject/seeback/algorithm-cli/apps/algo/algo}"
+    local cli="${ALGO_CLI:-$HOME/.local/bin/algo}"
     if [[ ! -x "$cli" ]]; then
         echo "algo: not found: $cli" >&2
         return 1
