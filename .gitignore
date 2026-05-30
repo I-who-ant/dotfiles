@@ -25,6 +25,7 @@
 local-private/
 private/
 secrets/
+SYNC_REVIEW.md
 
 # runtime / machine-state clutter discovered during live->repo sync
 autostart/.config/autostart/appimagekit_*.desktop
