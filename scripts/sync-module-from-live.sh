@@ -203,16 +203,24 @@ sync_file() {
   local repo_rel="$2"
   local live="$HOME/$live_rel"
   local dst="$DOT_ROOT/$repo_rel"
+  local parent
+  parent="$(dirname "$dst")"
   local args=( "${common_rsync_args[@]}" )
   $DRY_RUN && args+=( --dry-run )
-
-  mkdir -p "$(dirname "$dst")"
 
   if [ -f "$live" ] || [ -L "$live" ]; then
     if is_sensitive_file "$live"; then
       echo "blocked sensitive file: $live" >&2
       blocked_sensitive+=( "$repo_rel <= $live_rel" )
       return
+    fi
+    if [ ! -d "$parent" ]; then
+      if $DRY_RUN; then
+        echo "would create directory: $parent"
+        echo "would copy file: $live -> $dst"
+        return
+      fi
+      mkdir -p "$parent"
     fi
     rsync "${args[@]}" "$live" "$dst"
     if ! $DRY_RUN; then
@@ -248,13 +256,21 @@ sync_tree() {
   local repo_rel="$2"
   local live="$HOME/$live_rel"
   local dst="$DOT_ROOT/$repo_rel"
+  local parent
+  parent="$(dirname "$dst")"
   local args=( "${common_rsync_args[@]}" )
   $DRY_RUN && args+=( --dry-run )
   $DELETE && args+=( --delete )
 
-  mkdir -p "$dst"
-
   if [ -d "$live" ]; then
+    if [ ! -d "$dst" ]; then
+      if $DRY_RUN; then
+        echo "would create directory: $dst"
+        rsync "${args[@]}" "$live/" "$dst/"
+        return
+      fi
+      mkdir -p "$dst"
+    fi
     rsync "${args[@]}" "$live/" "$dst/"
     return
   fi
