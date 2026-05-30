@@ -43,6 +43,7 @@ all_modules=(
   systemd-user
   kvantum
   foot
+  ghostty
   qt6ct
   nwg-look
   local-bin
@@ -403,6 +404,9 @@ run_module() {
       ;;
     foot)
       sync_tracked_module 'foot'
+      ;;
+    ghostty)
+      sync_tracked_module 'ghostty'
       ;;
     qt6ct)
       sync_tracked_module 'qt6ct'

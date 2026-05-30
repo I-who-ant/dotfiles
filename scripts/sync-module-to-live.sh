@@ -42,6 +42,7 @@ all_modules=(
   systemd-user
   kvantum
   foot
+  ghostty
   qt6ct
   nwg-look
   local-bin
@@ -250,6 +251,7 @@ run_module() {
     systemd-user) copy_tracked_module 'systemd-user' ;;
     kvantum) copy_tracked_module 'kvantum' ;;
     foot) copy_tracked_module 'foot' ;;
+    ghostty) copy_tracked_module 'ghostty' ;;
     qt6ct) copy_tracked_module 'qt6ct' ;;
     nwg-look) copy_tracked_module 'nwg-look' ;;
     local-bin) copy_tracked_module 'local-bin' ;;

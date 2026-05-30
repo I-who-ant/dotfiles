@@ -17,7 +17,7 @@ rime/
   .local/share/fcitx5/rime/
 ```
 
-常见模块：`emacs/`、`zsh/`、`hypr/`、`waybar/`、`rime/`、`local-bin/`、`local-apps/` 等。
+常见模块：`emacs/`、`zsh/`、`hypr/`、`waybar/`、`rime/`、`ghostty/`、`local-bin/`、`local-apps/` 等。
 完整模块列表以脚本 `--list` 输出为准。
 
 ## 同步模型
