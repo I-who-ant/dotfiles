@@ -147,6 +147,46 @@ systemctl --user daemon-reload
 - 再恢复 compositor、bar、launcher、input method
 - 最后恢复 desktop entry、autostart、theme
 
+## 不用 stow 的日常同步
+
+如果你不想把 `$HOME` 里的 live 配置改成 symlink，也可以把本仓库当成“配置快照仓库”。
+
+推荐工作流：
+
+1. 平时直接修改本机 live 配置
+2. 需要入库时，运行同步脚本
+3. 看 `git diff` / `git status`
+4. 确认后再 `git add` / `git commit`
+
+当前提供三层入口：
+
+- 总控脚本：`./scripts/sync-dotfiles-from-live.sh`
+- 通用模块脚本：`./scripts/sync-module-from-live.sh`
+- 模块专属 wrapper：`./scripts/sync-rime-from-live.sh`、`./scripts/sync-hypr-from-live.sh`、`./scripts/sync-zsh-from-live.sh` 等
+
+示例：
+
+```bash
+./scripts/sync-dotfiles-from-live.sh --list
+./scripts/sync-dotfiles-from-live.sh              # 安全默认组：rime zsh local-apps
+./scripts/sync-dotfiles-from-live.sh --dry-run    # 预览安全默认组
+./scripts/sync-dotfiles-from-live.sh --dry-run rime hypr
+./scripts/sync-dotfiles-from-live.sh --all --dry-run
+./scripts/sync-rime-from-live.sh
+./scripts/sync-hypr-from-live.sh --dry-run
+```
+
+默认把 **live 配置视为源头**，但同步策略已经收紧成：
+
+- `sync-dotfiles-from-live.sh` 不带参数时只同步安全默认组：`rime zsh local-apps`
+- 真正全量必须显式使用 `--all`
+- 大多数模块只同步 **仓库里已跟踪的文件**
+- `rime` 这类特殊模块走显式白名单
+- `zsh/.config/zsh/modules/environment.zsh` 会保留“加载私有 env 文件”的公共挂钩，但不收真实密钥值
+- 常见敏感模式（如 `OBS_PASSWORD=`、`env_key=`、`*_TOKEN=`、`/tmp/.mount_*`）会被拦截并跳过
+
+这意味着脚本默认更偏“安全快照回写”，而不是“把 live 整个目录原样灌回仓库”。
+
 ## 收哪些
 
 - `~/.emacs`
@@ -238,6 +278,7 @@ systemctl --user daemon-reload
 - `fastfetch/`：`~/.config/fastfetch/`
 - `kitty/`：`~/.config/kitty/`
 - `fcitx5/`：`~/.config/fcitx5/`
+- `rime/`：`~/.local/share/fcitx5/rime/`
 - `gtk-3.0/`：`~/.config/gtk-3.0/`
 - `gtk-4.0/`：`~/.config/gtk-4.0/`
 - `autostart/`：`~/.config/autostart/`

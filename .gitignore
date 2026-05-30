@@ -11,6 +11,11 @@
 *.bak
 *.backup
 *.broken
+.directory
+.zcompdump
+.zcompdump-*
+.zsh_history
+*.zwc
 
 .cache/
 .local/state/
@@ -20,3 +25,16 @@
 local-private/
 private/
 secrets/
+
+# runtime / machine-state clutter discovered during live->repo sync
+autostart/.config/autostart/appimagekit_*.desktop
+fcitx5/.config/fcitx5/conf/cached_layouts
+fcitx5/.config/fcitx5/conf/*.conf_*
+fcitx5/.config/fcitx5/profile_*
+gtk-3.0/.config/gtk-3.0/bookmarks
+local-apps/.local/share/applications/appimagekit_*.desktop
+local-apps/.local/share/applications/wine-extension-*.desktop
+local-apps/.local/share/applications/userapp-*.desktop
+local-apps/.local/share/applications/*.bak
+local-apps/.local/share/applications/*.save
+local-apps/.local/share/applications/mimeinfo.cache
