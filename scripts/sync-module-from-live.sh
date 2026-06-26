@@ -44,6 +44,7 @@ all_modules=(
   kvantum
   foot
   ghostty
+  yazi
   qt6ct
   nwg-look
   local-bin
@@ -407,6 +408,9 @@ run_module() {
       ;;
     ghostty)
       sync_tracked_module 'ghostty'
+      ;;
+    yazi)
+      sync_tracked_module 'yazi'
       ;;
     qt6ct)
       sync_tracked_module 'qt6ct'

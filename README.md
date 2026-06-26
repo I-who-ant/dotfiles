@@ -17,7 +17,7 @@ rime/
   .local/share/fcitx5/rime/
 ```
 
-常见模块：`emacs/`、`zsh/`、`hypr/`、`waybar/`、`rime/`、`ghostty/`、`local-bin/`、`local-apps/` 等。
+常见模块：`emacs/`、`zsh/`、`hypr/`、`waybar/`、`rime/`、`ghostty/`、`yazi/`、`local-bin/`、`local-apps/` 等。
 完整模块列表以脚本 `--list` 输出为准。
 
 ## 同步模型
@@ -66,6 +66,63 @@ live($HOME)  <->  repo
 - `./scripts/scaffold-sync-module.sh`
 
 它用于把“当前只存在于本机、还没进入仓库”的配置，先收进仓库。
+
+## 新机器快速开始
+
+建议第一次在其他机器上按这个顺序走：
+
+```bash
+git clone git@github.com:I-who-ant/dotfiles.git
+cd dotfiles
+
+# 先看支持哪些模块
+./scripts/sync-dotfiles-to-live.sh --list
+
+# 先预演默认安全组
+./scripts/sync-dotfiles-to-live.sh --dry-run
+
+# 真正恢复默认安全组
+./scripts/sync-dotfiles-to-live.sh
+
+# 再按需恢复更多模块
+./scripts/sync-dotfiles-to-live.sh yazi ghostty hypr waybar
+```
+
+推荐策略：
+
+1. 先恢复 `zsh`、`rime`、`local-apps` 这种默认安全组
+2. 再逐个恢复 `yazi`、`ghostty`、`hypr`、`waybar` 这类桌面模块
+3. 每次恢复前先跑一次 `--dry-run`
+
+新机器还要自己安装程序本体；这个仓库主要同步配置，不负责把所有软件一起装上。
+
+常见需要单独安装的依赖：
+
+- `zsh` / `oh-my-zsh` / `powerlevel10k`
+- `fcitx5` / `rime`
+- `hyprland` / `waybar` / `rofi`
+- `ghostty` / `kitty` / `yazi` / `mpv`
+
+## 多机同步推荐流程
+
+### 机器 A：改完后入库
+
+```bash
+./scripts/sync-dotfiles-from-live.sh <module>
+git diff
+git add <module>
+git commit -m "update <module>"
+git push
+```
+
+### 机器 B：拉取并恢复
+
+```bash
+git pull
+./scripts/sync-dotfiles-to-live.sh <module>
+```
+
+一句话：**Git 负责机器之间传仓库，sync 脚本负责 repo 和 `$HOME` 之间双向同步。**
 
 ## 常用命令
 
@@ -471,3 +528,12 @@ git commit -m "dotfiles: add ghostty as synced module example"
 ```bash
 ./scripts/scaffold-sync-module.sh <module> <live-relative-path>
 ```
+
+## 快速理解入口
+
+如果你不想一上来读脚本，建议按这个顺序：
+
+1. `docs/architecture-overview.md`
+2. `docs/operator-cookbook.md`
+3. 根目录这份 `README.md`
+4. 需要最终证据时再看 `scripts/sync-module-from-live.sh` / `scripts/sync-module-to-live.sh`

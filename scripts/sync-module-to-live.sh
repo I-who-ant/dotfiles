@@ -43,6 +43,7 @@ all_modules=(
   kvantum
   foot
   ghostty
+  yazi
   qt6ct
   nwg-look
   local-bin
@@ -252,6 +253,7 @@ run_module() {
     kvantum) copy_tracked_module 'kvantum' ;;
     foot) copy_tracked_module 'foot' ;;
     ghostty) copy_tracked_module 'ghostty' ;;
+    yazi) copy_tracked_module 'yazi' ;;
     qt6ct) copy_tracked_module 'qt6ct' ;;
     nwg-look) copy_tracked_module 'nwg-look' ;;
     local-bin) copy_tracked_module 'local-bin' ;;

@@ -1,0 +1,10 @@
+[mgr]
+prepend_keymap = [
+  { on = "e", run = "shell --block -- emacsclient -c -a '' %h", desc = "Edit hovered file with emacsclient" },
+  { on = "<C-n>", run = "arrow 1", desc = "Next item" },
+  { on = "<C-p>", run = "arrow -1", desc = "Previous item" },
+  { on = "<C-f>", run = "enter", desc = "Enter directory or open file" },
+  { on = "<C-b>", run = "leave", desc = "Leave directory" },
+  { on = "<C-v>", run = "page 1", desc = "Page down" },
+  { on = "<A-v>", run = "page -1", desc = "Page up" },
+]

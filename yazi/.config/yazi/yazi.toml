@@ -1,0 +1,15 @@
+[opener]
+edit = [
+  { run = "emacsclient -c -a '' %s", block = true, desc = "Edit with emacsclient", for = "linux" },
+]
+open = [
+  { run = "xdg-open %s1", orphan = true, desc = "Open with xdg-open", for = "linux" },
+]
+
+[open]
+prepend_rules = [
+  { mime = "text/*", use = "edit" },
+]
+append_rules = [
+  { url = "*", use = "open" },
+]
